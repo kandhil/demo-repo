@@ -36,19 +36,34 @@ stages {
 						}
 					}
 
-			stage('Deploy-stage') {
-					input{
-					   message "Hi there !!!... Wanna continue further!!"
-		    			ok "Yes, I would!!"
-					parameters{
-						string(name: 'USER')
-}
-}
+			stage('Deploy-stage-main') {
+					when {
+					    branch "main"
+					}					
 					    steps {
-						echo "This is checkout stage"
-						echo "$place"
+						echo "Deploying the code into development environment"
+					
 						}
 					}
+			stage('Deploy-stage-dev') {
+					when {
+					    branch "dev"
+					}					
+					    steps {
+						echo "Deploying the code into user-defind environment"
+					
+						}
+					}
+			stage('Deploy-stage-feature') {
+					when {
+					    branch "feature-branch"
+					}					
+					    steps {
+						echo "Deploying the code into Testing environment"
+					
+						}
+					}
+
 
 			}
 

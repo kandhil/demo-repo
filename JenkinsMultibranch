@@ -1,0 +1,55 @@
+pipeline{
+
+agent {
+      label 'build'
+    }
+
+	options {
+  retry(3)
+  buildDiscarder logRotator(artifactDaysToKeepStr: '', artifactNumToKeepStr: '', daysToKeepStr: '1', numToKeepStr: '2')
+  timestamps()
+}	
+environment{
+	name="amit"
+	place="india"
+}
+stages {
+		stage('checkout-stage') {
+					 steps {
+						echo "This is checkout stage"
+						echo "$place"
+						echo "$name"
+						}			
+					}
+
+			stage('Test-stage') {
+						 steps {
+							echo 'This is a test case and is taken care while building artifact itself'
+							echo "$name"
+						}
+					}
+
+			stage('Build-stage') {
+					steps {
+					  echo "This is build stage"
+					  echo "$name"
+						}
+					}
+
+			stage('Deploy-stage') {
+					input{
+					   message "Hi there !!!... Wanna continue further!!"
+		    			ok "Yes, I would!!"
+					parameters{
+						string(name: 'USER')
+}
+}
+					    steps {
+						echo "This is checkout stage"
+						echo "$place"
+						}
+					}
+
+			}
+
+		}
